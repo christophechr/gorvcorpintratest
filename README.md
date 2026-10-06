@@ -32,7 +32,7 @@ La version de production est générée dans `dist/gorvcorp/browser`.
 Chaque push sur `main` construit l’application Angular en production et publie son image Nginx sur GitHub Container Registry :
 
 - `ghcr.io/christophechr/gorvcorpintratest:latest`
-- `ghcr.io/christophechr/gorvcorpintratest:sha-<SHA complet du commit>`
+- `ghcr.io/christophechr/gorvcorpintratest:build-<numéro de run>.<tentative>`
 
 Le workflow `.github/workflows/docker-publish.yml` utilise le `GITHUB_TOKEN` automatique avec les permissions `packages: write` (registre) et `contents: write` (releases). Aucun secret supplémentaire n’est nécessaire. GitHub Actions doit être activé sur le dépôt ; les éventuelles politiques de l’organisation doivent autoriser la publication de packages. Le workflow peut aussi être lancé manuellement sur `main`.
 
@@ -54,19 +54,15 @@ Si le package est privé, s’authentifier à GHCR avec un compte autorisé et u
 
 ## Télécharger une image depuis les releases
 
-Chaque push sur `main` publie aussi une release `docker-<numéro de run>-<tentative>` contenant :
+Chaque push sur `main` publie aussi une release `build-<numéro de run>.<tentative>` contenant une archive telle que `gorvcorp-build-42.1-linux-amd64.tar.gz` : l’image complète pour Linux x86-64.
 
-- `gorvcorp-<SHA du commit>-linux-amd64.tar.gz` : image complète pour Linux x86-64.
-- Le fichier `.sha256` associé pour vérifier son intégrité.
+La release cible le commit construit. Une nouvelle tentative du workflow crée une release distincte. Le même tag identifie la release GitHub et l’image Docker. Par exemple, `build-42.1` correspond au run 42, première tentative. L’archive est exportée depuis cette image taguée.
 
-La release cible le commit construit. Une nouvelle tentative du workflow crée une release distincte. L’archive est exportée à partir du digest de l’image publiée, pour garantir qu’elle correspond à ce build.
-
-Télécharger les deux fichiers depuis [GitHub Releases](https://github.com/christophechr/gorvcorpintratest/releases), puis :
+Télécharger l’archive depuis [GitHub Releases](https://github.com/christophechr/gorvcorpintratest/releases), puis :
 
 ```sh
-sha256sum -c gorvcorp-<SHA du commit>-linux-amd64.tar.gz.sha256
-docker load -i gorvcorp-<SHA du commit>-linux-amd64.tar.gz
-docker run --rm -p 8080:80 ghcr.io/christophechr/gorvcorpintratest:sha-<SHA du commit>
+docker load -i gorvcorp-build-42.1-linux-amd64.tar.gz
+docker run --rm -p 8080:80 ghcr.io/christophechr/gorvcorpintratest:build-42.1
 ```
 
-Remplacer `<SHA du commit>` par le SHA figurant dans le nom du fichier. `docker load` accepte directement l’archive gzip ; aucun accès au registre GHCR n’est nécessaire pour la charger. Sur macOS, utiliser `shasum -a 256 -c` pour vérifier l’intégrité. L’image est destinée aux machines amd64 ; sur Apple Silicon, Docker nécessite l’émulation avec `--platform linux/amd64` au lancement.
+Remplacer `build-42.1` par le tag de la release téléchargée. `docker load` accepte directement l’archive gzip ; aucun accès au registre GHCR n’est nécessaire pour la charger. L’image est destinée aux machines amd64 ; sur Apple Silicon, Docker nécessite l’émulation avec `--platform linux/amd64` au lancement.
