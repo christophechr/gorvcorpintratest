@@ -1,0 +1,12 @@
+.git
+.github
+node_modules
+dist
+.angular
+.vscode
+.env
+.env.*
+*.log
+README.md
+DESIGN.md
+gc_logo.png
