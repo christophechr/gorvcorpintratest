@@ -1,4 +1,4 @@
-name: Build and publish Docker image
+name: Build Docker image and create release
 
 on:
   push:
@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     permissions:
-      contents: read
+      contents: write
       packages: write
     steps:
       - name: Checkout
@@ -46,11 +46,57 @@ jobs:
             type=sha,format=long
 
       - name: Build and publish
+        id: build
         uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
         with:
           context: .
+          platforms: linux/amd64
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+      - name: Export Docker tarball
+        id: archive
+        env:
+          IMAGE_NAME: ${{ steps.image.outputs.name }}
+          IMAGE_DIGEST: ${{ steps.build.outputs.digest }}
+        run: |
+          set -euo pipefail
+          mkdir -p release
+          archive="gorvcorp-${GITHUB_SHA}-linux-amd64.tar.gz"
+          image="${IMAGE_NAME}:sha-${GITHUB_SHA}"
+          docker pull --platform linux/amd64 "${IMAGE_NAME}@${IMAGE_DIGEST}"
+          docker tag "${IMAGE_NAME}@${IMAGE_DIGEST}" "$image"
+          docker save "$image" | gzip > "release/$archive"
+          (cd release && sha256sum "$archive" > "$archive.sha256")
+          echo "file=$archive" >> "$GITHUB_OUTPUT"
+
+      - name: Create GitHub release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          ARCHIVE: ${{ steps.archive.outputs.file }}
+          IMAGE_NAME: ${{ steps.image.outputs.name }}
+        run: |
+          set -euo pipefail
+          tag="docker-${GITHUB_RUN_NUMBER}-${GITHUB_RUN_ATTEMPT}"
+          cat > release/notes.md <<EOF
+          Image Docker de GorvCorp pour Linux amd64, commit ${GITHUB_SHA}.
+
+          Télécharger l'archive et son fichier SHA-256, puis lancer :
+
+          \`\`\`sh
+          sha256sum -c ${ARCHIVE}.sha256
+          docker load -i ${ARCHIVE}
+          docker run --rm -p 8080:80 ${IMAGE_NAME}:sha-${GITHUB_SHA}
+          \`\`\`
+
+          Application : http://localhost:8080
+          EOF
+          gh release create "$tag" \
+            "release/$ARCHIVE" "release/$ARCHIVE.sha256" \
+            --target "$GITHUB_SHA" \
+            --title "Docker build ${GITHUB_RUN_NUMBER}.${GITHUB_RUN_ATTEMPT}" \
+            --notes-file release/notes.md
