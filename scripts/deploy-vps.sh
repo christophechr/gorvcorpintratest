@@ -3,7 +3,7 @@ set -euo pipefail
 
 archive=${1:?Archive Docker manquante}
 image=${2:?Tag image manquant}
-port=${3:-80}
+port=${3:-8080}
 [[ "$port" =~ ^[0-9]+$ ]] && (( port >= 1 && port <= 65535 )) || exit 1
 
 # Serialize deployments, including manual invocations on the VPS.

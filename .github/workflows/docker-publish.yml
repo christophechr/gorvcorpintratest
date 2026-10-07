@@ -113,7 +113,7 @@ jobs:
           VPS_SSH_KEY: ${{ secrets.VPS_SSH_KEY }}
           VPS_KNOWN_HOST: ${{ secrets.VPS_KNOWN_HOST }}
           VPS_SSH_PORT: ${{ vars.VPS_SSH_PORT || '22' }}
-          VPS_HTTP_PORT: ${{ vars.VPS_HTTP_PORT || '80' }}
+          VPS_HTTP_PORT: ${{ vars.VPS_HTTP_PORT || '8080' }}
           ARCHIVE: ${{ steps.archive.outputs.file }}
           IMAGE_NAME: ${{ steps.image.outputs.name }}
           VERSION_TAG: ${{ steps.version.outputs.tag }}

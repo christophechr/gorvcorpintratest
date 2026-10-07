@@ -79,9 +79,9 @@ Configurer les secrets dans **Settings → Environments → VPS_1 → Environmen
 | Secret               | `VPS_SSH_KEY`    | Clé privée SSH dédiée, sans passphrase          |
 | Secret               | `VPS_KNOWN_HOST` | Entrée SSH connue du VPS (format `known_hosts`) |
 | Variable facultative | `VPS_SSH_PORT`   | Port SSH, `22` par défaut                       |
-| Variable facultative | `VPS_HTTP_PORT`  | Port HTTP publié, `80` par défaut               |
+| Variable facultative | `VPS_HTTP_PORT`  | Port local du conteneur, `8080` par défaut      |
 
-Ajouter la clé publique correspondante à `/home/debian/.ssh/authorized_keys`. L’utilisateur `debian` doit pouvoir exécuter Docker directement ou via `sudo -n docker`. Le VPS doit être Linux amd64 et son port HTTP doit être libre et accessible dans le pare-feu.
+Ajouter la clé publique correspondante à `/home/debian/.ssh/authorized_keys`. L’utilisateur `debian` doit pouvoir exécuter Docker directement ou via `sudo -n docker`. Le VPS doit être Linux amd64 et le port local 8080 doit être libre. Nginx sur le VPS relaie les requêtes publiques vers `http://127.0.0.1:8080`.
 
 Pour obtenir l’entrée `known_hosts`, depuis une machine qui connaît déjà le VPS :
 
@@ -95,7 +95,7 @@ Copier la ligne de clé de l’hôte dans `VPS_KNOWN_HOST`. Cette authentificati
 
 Le déploiement teste `/healthz` dans un conteneur temporaire avant de remplacer le site. Une courte interruption accompagne le remplacement. Si le nouveau conteneur ne démarre pas correctement, le précédent est restauré. Le conteneur précédent est conservé arrêté sous `gorvcorp-previous` jusqu’à la mise à jour suivante ; l’archive transférée est supprimée après succès. Le tag actif est écrit dans `current-image.txt`.
 
-L’application sera accessible en HTTP sur `http://ADRESSE_DU_VPS` (ou le port configuré). Le HTTPS et le nom de domaine ne sont pas configurés par ce workflow. Les releases restent disponibles même si le déploiement échoue.
+Le conteneur écoute uniquement sur `127.0.0.1:8080` (ou le port configuré). Nginx sur le VPS doit être configuré comme reverse proxy pour rendre le site accessible. Le HTTPS et le nom de domaine ne sont pas configurés par ce workflow. Les releases restent disponibles même si le déploiement échoue.
 
 ## Lecteur Twitch
 
