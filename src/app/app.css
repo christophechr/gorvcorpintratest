@@ -273,11 +273,11 @@ h2 {
 }
 .lineups {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: minmax(0, 1fr);
   gap: 24px;
 }
 .lineup-image {
-  height: 220px;
+  aspect-ratio: 750 / 390;
   overflow: hidden;
   position: relative;
   border-radius: 10px;
@@ -615,9 +615,6 @@ footer > div {
   .schedule-detail {
     display: none;
   }
-  .lineup-image {
-    height: 180px;
-  }
 }
 @media (max-width: 700px) {
   header {
@@ -735,7 +732,6 @@ footer > div {
     gap: 30px;
   }
   .lineup-image {
-    height: 240px;
     margin-bottom: 16px;
   }
   .lineup h3 {

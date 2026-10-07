@@ -33,11 +33,11 @@
       aria-label="Installation gaming dans une salle de compétition"
     ></div>
     <div class="hero-content wrap">
-      <p class="eyebrow"><span class="dash"></span> MULTIGAMING. UNE MÊME FAMILLE.</p>
+      <p class="eyebrow"><span class="dash"></span> LEAGUE OF LEGENDS. UNE MÊME FAMILLE.</p>
       <h1>Bienvenue dans<br />la <span>GorvCorp.</span></h1>
       <p class="hero-description">
-        Existante depuis 2019, l’élite de la nation s’est rassemblée autour d’un même but :
-        conquérir les internets et les meuporgs.
+        Depuis 2019, la GorvCorp rassemble un collectif avec la même envie de jouer ensemble.
+        Aujourd’hui, on se concentre uniquement sur League of Legends.
       </p>
       <div class="actions">
         <a class="button primary" href="#equipe">Découvrir notre équipe <span>↗</span></a
@@ -66,15 +66,15 @@
     <div class="section-heading">
       <div>
         <p class="eyebrow">01 / LE COLLECTIF</p>
-        <h2>Plusieurs jeux.<br />Un seul état d’esprit.</h2>
+        <h2>League of Legends.<br />Un seul état d’esprit.</h2>
       </div>
-      <p>Des raids aux arènes, on avance ensemble.<br />Découvrez votre prochain terrain de jeu.</p>
+      <p>Sur la Faille de l’invocateur, on avance ensemble.<br />Découvrez notre collectif LoL.</p>
     </div>
     <div class="lineups">
       @for (lineup of lineups; track lineup.number) {
         <a class="lineup" href="#contact" (click)="apply()"
           ><div class="lineup-image">
-            <img [src]="lineup.image" [alt]="lineup.name" loading="lazy" /><span
+            <img [src]="lineup.image" [alt]="lineup.imageAlt" loading="lazy" /><span
               class="lineup-number"
               >{{ lineup.number }}</span
             ><span class="image-arrow">↗</span>
@@ -116,11 +116,11 @@
         <p class="eyebrow">02 / LA WEBTV</p>
         <h2>La semaine se termine.<br />Le live commence.</h2>
         <p>
-          Le vendredi soir, on pose les manettes et on refait les internets. Un plateau multigaming,
+          Le vendredi soir, on se retrouve autour de League of Legends. Du jeu,
           des débats sans filtre et surtout, vous.
         </p>
         <ul>
-          <li>Un plateau multigaming interactif</li>
+          <li>Un plateau League of Legends interactif</li>
           <li>La communauté prend la parole</li>
           <li>Du jeu, des débats et des giveaways</li>
         </ul>
@@ -150,7 +150,7 @@
       <div>
         <span>01</span>
         <p>
-          <strong>Vous nous racontez votre parcours.</strong>Votre jeu, vos ambitions, vos
+          <strong>Vous nous racontez votre parcours.</strong>Votre rôle sur LoL, vos ambitions, vos
           disponibilités.
         </p>
       </div>
@@ -258,7 +258,7 @@
   >
   <p>Les internets depuis 2019.<br />Le collectif, pour longtemps.</p>
   <div>
-    <a href="#equipe">Line-ups</a><a href="#webtv">WebTV</a><a href="#recrutement">Tryouts</a>
+    <a href="#equipe">Équipe LoL</a><a href="#webtv">WebTV</a><a href="#recrutement">Tryouts</a>
   </div>
   <small>© 2019–2026 GorvCorp.<br />Tous droits réservés.</small>
 </footer>

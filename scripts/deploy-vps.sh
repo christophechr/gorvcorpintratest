@@ -49,7 +49,7 @@ if "${docker_cmd[@]}" container inspect gorvcorp >/dev/null 2>&1; then
   previous=true
 fi
 
-if "${docker_cmd[@]}" run -d --name gorvcorp --restart unless-stopped -p "$port:80" "$image" >/dev/null && healthy gorvcorp; then
+if "${docker_cmd[@]}" run -d --name gorvcorp --restart unless-stopped -p "127.0.0.1:$port:80" "$image" >/dev/null && healthy gorvcorp; then
   printf '%s\n' "$image" > /home/debian/gorvcorp/current-image.txt
   rm -f -- "$archive"
   echo "Déploiement terminé : $image sur le port $port"

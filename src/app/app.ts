@@ -20,27 +20,11 @@ export class App {
   readonly lineups = [
     {
       number: '01',
-      name: 'Meuporgs & MMORPG',
-      tag: 'RAIDS · PVE · PVP',
-      description: 'Les boss tombent. La mauvaise foi reste.',
-      image:
-        'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=900&q=85',
-    },
-    {
-      number: '02',
-      name: 'FPS & Tactical',
-      tag: 'VALORANT · CS · SCRIMS',
-      description: 'Du sang-froid. Du collectif. Et un bon aim.',
-      image:
-        'https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=900&q=85',
-    },
-    {
-      number: '03',
-      name: 'Rocket League & Arcade',
-      tag: '3V3 · COMPÉTITION · FUN',
-      description: 'On vise le sommet. Parfois le ballon.',
-      image:
-        'https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?auto=format&fit=crop&w=900&q=85',
+      name: 'League of Legends',
+      tag: 'LOL · ÉQUIPE · COMPÉTITION',
+      description: 'La Faille de l’invocateur. Un collectif. La même envie de progresser.',
+      image: 'lec-draft-g2-kc.jpg',
+      imageAlt: 'Draft League of Legends entre G2 et Karmine Corp en LEC : picks et bans des champions',
     },
   ];
   closeMenu() {

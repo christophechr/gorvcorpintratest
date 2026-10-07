@@ -5,7 +5,7 @@
 
 ### 1. Synthèse Exécutive & Contexte du Projet
 
-* **Client / Marque** : GorvCorp (Organisation Multigaming & Communauté Esport francophone fondée en 2019).
+* **Client / Marque** : GorvCorp (Organisation & Communauté Esport francophone fondée en 2019, actuellement centrée uniquement sur League of Legends).
 * **URL Actuelle de référence** : `https://www.gorvcorp.fr/`
 * **Objectif Principal** : Moderniser l'image de marque de la GorvCorp à travers une interface web sobre, premium et responsive, tout en préservant l'ADN communautaire historique (humour décalé, culte du « meuporg », l'Individu Lambda) et en professionnalisant les canaux de conversion (recrutement compétitif, WebTV Twitch hebdomadaire, partenariats).
 * **Anti-patterns identifiés (à proscrire)** : 
@@ -18,13 +18,13 @@
 ### 2. Cibles & Personas Utilisateurs
 
 1. **Le Joueur Compétitif / Recrue Esport** :
-   * *Besoin* : Identifier rapidement les line-ups actives (MMORPG/PVE HL, FPS tactique, Rocket League, Arcade), comprendre le processus de sélection transparent (« examen garanti sans sous-traitance ») et candidater facilement.
+   * *Besoin* : Identifier rapidement l’équipe League of Legends active, comprendre le processus de sélection transparent (« examen garanti sans sous-traitance ») et candidater facilement.
 2. **Le Spectateur / Fan WebTV** :
    * *Besoin* : Connaître le rendez-vous phare du direct Twitch (tous les vendredis soir à 22h00), accéder immédiatement au live et aux rediffusions/réseaux sociaux.
 3. **Le Partenaire / Sponsor / Organisateur d'événements** :
    * *Besoin* : Évaluer le sérieux et l'ancrage de la communauté, entrer en contact via un formulaire direct et catégorisé (sélection d'objet).
 4. **Le Membre Communautaire** :
-   * *Besoin* : Retrouver les délires cultes de la corporation, rejoindre le serveur Discord officiel et suivre l'actualité des équipes.
+   * *Besoin* : Retrouver les délires cultes de la corporation, rejoindre le serveur Discord officiel et suivre l'actualité de l’équipe League of Legends.
 
 ---
 
@@ -56,18 +56,16 @@
 
 #### 4.2. Hero Section (Manifeste de Marque)
 * **Titre principal** : « Bienvenue sur le site de la GorvCorp ! »
-* **Accroche verbatim** : « Existante depuis 2019, l'élite de la nation s'est rassemblée autour d'un même but : conquérir les internets et les meuporgs. »
+* **Accroche** : « Depuis 2019, la GorvCorp rassemble un collectif avec la même envie de jouer ensemble. Aujourd’hui, on se concentre uniquement sur League of Legends. »
 * **Actions** :
   * Bouton principal : *Découvrir notre équipe* (ancrage).
   * Bouton secondaire : *Rejoindre l'aventure* (redirection Discord / Recrutement).
 
 #### 4.3. Pôle Recrutement & Compétitions
 * **Philosophie** : Recrutement transparent et rigoureux (« examen garanti sans sous-traitance »).
-* **Line-ups mises en avant** :
-  * *Meuporgs & MMORPG* (Raids HL, optimisation PvE & PvP).
-  * *FPS & Tactical* (Valorant, CS, tournois nationaux & scrims).
-  * *Rocket League & Arcade* (Ligue 3v3, entraînements structurés).
-  * *WebTV & Casters* (Animation, modération, régie streaming).
+* **Équipe mise en avant** :
+  * *League of Legends* (Collectif, progression et compétition sur la Faille de l’invocateur).
+  * La *WebTV & les Casters* accompagnent le collectif (animation, modération, régie streaming).
 * **Le Clin d'œil « Individu Lambda »** :
   * Intégration textuelle subtile de la citation culte d'origine (*« Comme cette personne qui n'existe pas (vous pouvez vérifier), rejoignez-nous ! »*) sans artifices visuels kitsch.
 * **Délai d'engagement** : Dossier traité sous 48h par le directoire.
@@ -76,7 +74,7 @@
 * **Créneau officiel** : Tous les vendredis soir à partir de 22h00 CET en direct.
 * **Fonctionnalités** :
   * Lecteur / Aperçu visuel optimisé sans fausses métriques tape-à-l'œil.
-  * Points clés du programme : Plateau multigaming interactif, débats communautaires sans filtre, chat dynamique et giveaways.
+  * Points clés du programme : Plateau League of Legends interactif, débats communautaires sans filtre, chat dynamique et giveaways.
   * CTA externe : *Regarder sur Twitch* avec redirection vérifiée vers `https://twitch.tv/GorvCorptv`.
 
 #### 4.5. Pôle Contact & Partenariat (Formulaire Avancé)
@@ -94,7 +92,7 @@
 #### 4.6. Pied de Page (Footer)
 * **Composants** :
   * Rappel du logo officiel et de la mission de l'organisation.
-  * Navigation secondaire : Line-ups, WebTV, Tryouts, Mentions Légales, CGU / Confidentialité.
+  * Navigation secondaire : Équipe LoL, WebTV, Tryouts, Mentions Légales, CGU / Confidentialité.
   * Mention légale et copyright : `Copyright © 2019-2025 GorvCorp. Tous droits réservés.`
 
 ---
