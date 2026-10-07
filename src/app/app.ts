@@ -1,7 +1,19 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({ selector: 'app-root', templateUrl: './app.html', styleUrl: './app.css' })
 export class App {
+  private readonly document = inject(DOCUMENT);
+  readonly twitchPlayerUrl = inject(DomSanitizer).bypassSecurityTrustResourceUrl(
+    'https://player.twitch.tv/?' +
+      new URLSearchParams({
+        channel: 'GorvCorptv',
+        parent: this.document.location.hostname,
+        autoplay: 'false',
+        muted: 'false',
+      }).toString(),
+  );
   readonly menuOpen = signal(false);
   readonly submitted = signal(false);
   readonly subject = signal('Candidature');
