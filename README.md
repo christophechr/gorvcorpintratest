@@ -71,15 +71,15 @@ Remplacer `build-42.1` par le tag de la release téléchargée. `docker load` ac
 
 Après la publication de la release, GitHub Actions transfère l’archive par SSH et déploie un nouveau conteneur `gorvcorp` dans `/home/debian/gorvcorp`, avec l’utilisateur `debian`. Nginx est inclus dans l’image ; aucune installation de Nginx ou Docker Compose sur le VPS n’est nécessaire.
 
-Configurer dans **Settings → Secrets and variables → Actions** :
+Configurer les secrets dans **Settings → Environments → VPS_1 → Environment secrets**. Le job utilise cet environnement pour accéder aux secrets. Les variables facultatives peuvent être définies dans ce même environnement :
 
-| Type                 | Nom               | Valeur                                          |
-| -------------------- | ----------------- | ----------------------------------------------- |
-| Secret               | `VPS_HOST`        | Adresse IP ou nom DNS du VPS                    |
-| Secret               | `VPS_SSH_KEY`     | Clé privée SSH dédiée, sans passphrase          |
-| Secret               | `VPS_KNOWN_HOSTS` | Entrée SSH connue du VPS (format `known_hosts`) |
-| Variable facultative | `VPS_SSH_PORT`    | Port SSH, `22` par défaut                       |
-| Variable facultative | `VPS_HTTP_PORT`   | Port HTTP publié, `80` par défaut               |
+| Type                 | Nom              | Valeur                                          |
+| -------------------- | ---------------- | ----------------------------------------------- |
+| Secret               | `VPS_HOST`       | Adresse IP ou nom DNS du VPS                    |
+| Secret               | `VPS_SSH_KEY`    | Clé privée SSH dédiée, sans passphrase          |
+| Secret               | `VPS_KNOWN_HOST` | Entrée SSH connue du VPS (format `known_hosts`) |
+| Variable facultative | `VPS_SSH_PORT`   | Port SSH, `22` par défaut                       |
+| Variable facultative | `VPS_HTTP_PORT`  | Port HTTP publié, `80` par défaut               |
 
 Ajouter la clé publique correspondante à `/home/debian/.ssh/authorized_keys`. L’utilisateur `debian` doit pouvoir exécuter Docker directement ou via `sudo -n docker`. Le VPS doit être Linux amd64 et son port HTTP doit être libre et accessible dans le pare-feu.
 
@@ -91,7 +91,7 @@ ssh-keygen -F ADRESSE_DU_VPS
 ssh-keygen -F '[ADRESSE_DU_VPS]:PORT_SSH'
 ```
 
-Copier la ligne de clé de l’hôte dans `VPS_KNOWN_HOSTS`. Cette authentification SSH est indépendante de la vérification d’archive SHA-256 supprimée.
+Copier la ligne de clé de l’hôte dans `VPS_KNOWN_HOST`. Cette authentification SSH est indépendante de la vérification d’archive SHA-256 supprimée.
 
 Le déploiement teste `/healthz` dans un conteneur temporaire avant de remplacer le site. Une courte interruption accompagne le remplacement. Si le nouveau conteneur ne démarre pas correctement, le précédent est restauré. Le conteneur précédent est conservé arrêté sous `gorvcorp-previous` jusqu’à la mise à jour suivante ; l’archive transférée est supprimée après succès. Le tag actif est écrit dans `current-image.txt`.
 

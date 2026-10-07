@@ -16,6 +16,7 @@ jobs:
   publish:
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
+    environment: VPS_1
     timeout-minutes: 20
     permissions:
       contents: write
@@ -110,7 +111,7 @@ jobs:
         env:
           VPS_HOST: ${{ secrets.VPS_HOST }}
           VPS_SSH_KEY: ${{ secrets.VPS_SSH_KEY }}
-          VPS_KNOWN_HOSTS: ${{ secrets.VPS_KNOWN_HOSTS }}
+          VPS_KNOWN_HOST: ${{ secrets.VPS_KNOWN_HOST }}
           VPS_SSH_PORT: ${{ vars.VPS_SSH_PORT || '22' }}
           VPS_HTTP_PORT: ${{ vars.VPS_HTTP_PORT || '80' }}
           ARCHIVE: ${{ steps.archive.outputs.file }}
@@ -120,13 +121,13 @@ jobs:
           set -euo pipefail
           : "${VPS_HOST:?Secret VPS_HOST manquant}"
           : "${VPS_SSH_KEY:?Secret VPS_SSH_KEY manquant}"
-          : "${VPS_KNOWN_HOSTS:?Secret VPS_KNOWN_HOSTS manquant}"
+          : "${VPS_KNOWN_HOST:?Secret VPS_KNOWN_HOST manquant}"
           [[ "$VPS_SSH_PORT" =~ ^[0-9]+$ ]]
           [[ "$VPS_HTTP_PORT" =~ ^[0-9]+$ ]]
           ssh_dir=$(mktemp -d)
           trap 'rm -rf "$ssh_dir"' EXIT
           printf '%s\n' "$VPS_SSH_KEY" > "$ssh_dir/key"
-          printf '%s\n' "$VPS_KNOWN_HOSTS" > "$ssh_dir/known_hosts"
+          printf '%s\n' "$VPS_KNOWN_HOST" > "$ssh_dir/known_hosts"
           chmod 600 "$ssh_dir/key" "$ssh_dir/known_hosts"
           ssh_options=(-i "$ssh_dir/key" -o BatchMode=yes -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes -o "UserKnownHostsFile=$ssh_dir/known_hosts" -o ConnectTimeout=20)
           target="debian@${VPS_HOST}"
